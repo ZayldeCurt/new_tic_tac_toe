@@ -1,3 +1,5 @@
+package only_methods;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -16,21 +18,31 @@ public class tic_tac_toe {
     private JLabel resultView;
     private JButton resetButton;
     private int[] result;
+    private int[][] resultArray;
 
 
 
     public tic_tac_toe() {
         InitTTT();
         CreateAndShowTTT();
-        ButtonActionRest(resetButton);
+        resetButton.addActionListener(this::actionButtonReset);
         for(int i=0;i<10;i++) {
-            ButtonAction(gameButtons[i]);
+            gameButtons[i].addActionListener(this::actionButton);
+//            ButtonAction(gameButtons[i]);
         }
 
     }
     private void InitTTT() {
         flag_round = true;
         flag_winner = false;
+        resultArray = new int[3][3];
+        for(int i=0;i<3;i++)
+        {
+            for(int j=0;j<3;j++)
+            {
+                resultArray[i][j]=0;
+            }
+        }
         result = new int[2];
         result[0]=0;
         result[1]=0;
@@ -126,63 +138,46 @@ public class tic_tac_toe {
         resetButton.setPreferredSize(new Dimension(100, 50));
         resetButton.setMinimumSize(new Dimension(100,50));
     }
-
-    private void ButtonActionRest(JButton bxx) {
-
-        bxx.addActionListener(new ActionListener() {
-
-            public void actionPerformed(ActionEvent e)
+    public void actionButton(ActionEvent e) {
+        if (e.getSource() instanceof JButton)
+        {
+            if(!flag_winner)
             {
-                for(int i=0;i<9;i++) {
-                    gameButtons[i].setEnabled(true);
-                    gameButtons[i].setText("");
+                if(!((((JButton) e.getSource()).getText()=="X")||(((JButton) e.getSource()).getText()=="Y"))) {
+                    if(flag_round) {
+                        ((JButton) e.getSource()).setText("X");
+                    }
+                    else {
+                        ((JButton) e.getSource()).setText("Y");
+                    }
+                    ((JButton) e.getSource()).setEnabled(false);
                 }
-                flag_winner = false;
+                CheckWinner();
+                flag_round=!flag_round;
+            }
+            if(!flag_winner) {
                 if (flag_round)
                     round.setText("Kolejka X");
                 else
                     round.setText("Kolejka Y");
-
-                randomStart();
-                }
-        });
-
-    }
-    private void ButtonAction(JButton bxx) {
-
-        bxx.addActionListener(new ActionListener() {
-
-            public void actionPerformed(ActionEvent e)
-            {
-                if(!flag_winner)
-                {
-                    if(!((bxx.getText()=="X")||(bxx.getText()=="Y")))
-                    {
-                        if(flag_round)
-                        {
-                            bxx.setText("X");
-                        }
-                        else
-                        {
-                            bxx.setText("Y");
-                        }
-                        bxx.setEnabled(false);
-                    }
-                    CheckWinner();
-                    flag_round=!flag_round;
-                }
-
-
-                if(!flag_winner)
-                {
-                    if (flag_round)
-                        round.setText("Kolejka X");
-                    else
-                        round.setText("Kolejka Y");
-                }
             }
-        });
+        }
+    }
+    public void actionButtonReset(ActionEvent e) {
+        if (e.getSource() instanceof JButton)
+        {
+            for(int i=0;i<9;i++) {
+                gameButtons[i].setEnabled(true);
+                gameButtons[i].setText("");
+            }
+            flag_winner = false;
+            if (flag_round)
+                round.setText("Kolejka X");
+            else
+                round.setText("Kolejka Y");
 
+            randomStart();
+        }
     }
 
     private void WinnerView(){
