@@ -142,7 +142,7 @@ public class tic_tac_toe {
                     round.setText("Kolejka X");
                 else
                     round.setText("Kolejka Y");
-                resultView.setText(result[0]+" : "+result[1]);
+
                 randomStart();
                 }
         });
@@ -188,15 +188,20 @@ public class tic_tac_toe {
     private void WinnerView(){
         if(flag_round)
         {
-            round.setText("wygrał X");
+//            round.setText("wygrał X");
+            JOptionPane.showMessageDialog(frame, "wygrał X");
             result[0]++;
         }
         else
         {
-            round.setText("wygrał Y");
+//            round.setText("wygrał Y");
+            JOptionPane.showMessageDialog(frame, "wygrał Y");
             result[1]++;
         }
         flag_winner=true;
+        resultView.setText(result[0]+" : "+result[1]);
+
+
     }
 
     private void CheckWinner(){
