@@ -1,11 +1,10 @@
-package with_class;
+package TTT.only_methods;
 
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
-import java.util.ArrayList;
+import java.util.*;
 import java.util.List;
-import java.util.Random;
 
 public class tic_tac_toe {
     private JFrame frame;
@@ -44,7 +43,7 @@ public class tic_tac_toe {
         result[0]=0;
         result[1]=0;
     }
-    private void CreateAndShowTTT() {
+    private void CreateAndShowTTT(){
         elementInit();
         panelInit();
         frameInit();
@@ -54,6 +53,10 @@ public class tic_tac_toe {
     {
         tic_tac_toe ticTacToe = new tic_tac_toe();
     }
+
+
+
+
     private void randomStart() {
         Random generator = new Random();
         flag_round = generator.nextBoolean();
@@ -91,12 +94,21 @@ public class tic_tac_toe {
             panel.add(gameButtons.get(i));
         }
     }
+    private void gameButtonsInit() {
 
+//        gameArray =new JButton[9];
+//        for(int i=0;i<9;i++) {
+//            gameArray[i] = new JButton();
+////            gameButtons.get(i).setPreferredSize(new Dimension(100, 100));
+//            gameArray[i].setPreferredSize(new Dimension(100, 100));
+//        }
+    }
     private void mainPanelInit() {
         mainPanel = new JPanel();
         mainPanel.setLayout(new BorderLayout());
         mainPanel.add(panel);
         mainPanel.add(subsidiaryPanel,BorderLayout.NORTH);
+
     }
     private void subsidiaryPanelInit() {
         subsidiaryPanel = new JPanel();
@@ -117,7 +129,7 @@ public class tic_tac_toe {
         resultView.setFont(new Font("SansSerif", Font.BOLD, 15));
     }
     private void roundInit() {
-        round = new JLabel("Początek Gry");
+        round = new JLabel("Początek Gry",SwingConstants.CENTER);
         round.setFont(new Font("SansSerif", Font.BOLD, 30));
     }
     private void resetButtonInit() {
@@ -126,16 +138,6 @@ public class tic_tac_toe {
         resetButton.setPreferredSize(new Dimension(100, 50));
         resetButton.setMinimumSize(new Dimension(100,50));
     }
-    private void gameButtonsInit() {
-
-//        gameArray =new JButton[9];
-//        for(int i=0;i<9;i++) {
-//            gameArray[i] = new JButton();
-////            gameButtons.get(i).setPreferredSize(new Dimension(100, 100));
-//            gameArray[i].setPreferredSize(new Dimension(100, 100));
-//        }
-    }
-
     public void actionButton(ActionEvent e) {
         if (e.getSource() instanceof JButton)
         {
@@ -181,6 +183,7 @@ public class tic_tac_toe {
             randomStart();
         }
     }
+
     private void WinnerView(){
         if(flag_round)
         {
@@ -197,6 +200,7 @@ public class tic_tac_toe {
 
 
     }
+
     private void CheckWinner(){
         String check_who;
         if(flag_round)

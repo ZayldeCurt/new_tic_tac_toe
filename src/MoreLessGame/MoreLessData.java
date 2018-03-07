@@ -29,6 +29,4 @@ public class MoreLessData {
     public MoreLessData(int randomNumber) {
         this.randomNumber = randomNumber;
     }
-
-
 }
